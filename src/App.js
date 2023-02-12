@@ -35,50 +35,31 @@ const reducer = (state, action) => {
     default:
       return state;
   }
+
+  // 데이터 변경은 무조건 reducer를 거친다.
+  localStorage.setItem("diary", JSON.stringify(newState));
   return newState
 }
 
 export const DiaryStateContext = React.createContext();
 export const DiaryDispatchContext = React.createContext();
 
-const dummyData = [
-  {
-    id: 1,
-    emotion: 1,
-    content: "오늘의 일기 1번",
-    date: 1675674635887,
-  },
-  {
-    id: 2,
-    emotion: 2,
-    content: "오늘의 일기 2번",
-    date: 1675676451618,
-  },
-  {
-    id: 3,
-    emotion: 3,
-    content: "오늘의 일기 3번",
-    date: 1675676451619,
-  },
-  {
-    id: 4,
-    emotion: 4,
-    content: "오늘의 일기 4번",
-    date: 1675676451620,
-  },
-  {
-    id: 5,
-    emotion: 5,
-    content: "오늘의 일기 5번",
-    date: 1675676451621,
-  }
-]
-
 function App() {
-  const [data, dispatch] = useReducer(reducer, dummyData);
-  const dataId = useRef(6); // bug: dummy data 다음 id부터 시작
+  const [data, dispatch] = useReducer(reducer, []);
+  const dataId = useRef(0);
 
   useEffect(() => {
+    const localData = localStorage.getItem('diary');
+    if(localData){
+       // bug 수정: 기존 data 다음 id부터 시작해야 함
+      const diaryList = JSON.parse(localData).sort((a, b)=>parseInt(b.id) - parseInt(a.id));
+      dataId.current = parseInt(diaryList[0].id) + 1
+      
+      dispatch({
+        type: "INIT",
+        data: diaryList
+      });
+    }
   }, [])
 
   //CREATE
