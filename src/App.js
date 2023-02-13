@@ -53,8 +53,10 @@ function App() {
     if(localData){
        // bug 수정: 기존 data 다음 id부터 시작해야 함
       const diaryList = JSON.parse(localData).sort((a, b)=>parseInt(b.id) - parseInt(a.id));
-      dataId.current = parseInt(diaryList[0].id) + 1
-      
+      if(diaryList.length >= 1) {
+        dataId.current = parseInt(diaryList[0].id) + 1; 
+      }
+    
       dispatch({
         type: "INIT",
         data: diaryList

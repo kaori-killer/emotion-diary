@@ -12,6 +12,11 @@ const Home = () => {
     const [curDate, setCurDate] = useState(new Date());
     const headText = `${curDate.getFullYear()}년 ${curDate.getMonth() + 1}월`;
 
+    useEffect(() => {
+        const titleElement = document.getElementsByTagName("title")[0];
+        titleElement.innerHTML = `감정 일기장`;
+    }, []);
+
     useEffect(()=> {
             // month는 0부터 시작한다. 0: 1월
             if(diaryList.data.length >= 1){

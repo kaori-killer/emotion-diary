@@ -13,6 +13,11 @@ const Diary = () => {
     const [data, setData] = useState();
     const diaryList = useContext(DiaryStateContext);
 
+    useEffect(() => {
+        const titleElement = document.getElementsByTagName("title")[0];
+        titleElement.innerHTML = `감정 일기장 - ${id}번 일기`;
+    }, []);
+
     useEffect(()=>{
         if(diaryList.data.length >= 1){
             const targetDiary = diaryList.data.find(
