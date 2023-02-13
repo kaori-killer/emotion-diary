@@ -37,11 +37,15 @@ const Home = () => {
     );
 
     const decreaseMonth = () => {
-        setCurDate(new Date(curDate.getFullYear(), curDate.getMonth() - 1, curDate.getDate()));
+        setCurDate(
+            new Date(curDate.getFullYear(), curDate.getMonth() - 1, curDate.getDate())
+            );
     }
 
     const increaseMonth = () => {
-        setCurDate(new Date(curDate.getFullYear(), curDate.getMonth() + 1, curDate.getDate()));
+        setCurDate(
+            new Date(curDate.getFullYear(), curDate.getMonth() + 1, curDate.getDate())
+            );
     }
 
     return (

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import MyButton from './MyButton';
 import DiaryItem from './DiaryItem';
@@ -14,8 +14,8 @@ const filterOptionList = [
     { value: "bad", name: "안좋은 감정만"},
 ];
 
-
-const ControlMenu = ({ value, onChange, optionList }) => {
+// React memo로 onChange가 잘 동작하는 이유는 useState에서 만든 함수이기 때문이다.
+const ControlMenu = React.memo(({ value, onChange, optionList }) => {
     return (
         <select className="ControlMenu" value={value} onChange={(e)=>onChange(e.target.value)}>
             {optionList.map((it, idx)=>
@@ -24,7 +24,7 @@ const ControlMenu = ({ value, onChange, optionList }) => {
             </option>)}
         </select>
     );
-}
+})
 
 const DiaryList = ({ diaryList }) => {
     const navigate = useNavigate();
